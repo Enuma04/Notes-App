@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         arrayAdapter.clear();  // Clear the old data
         arrayAdapter.addAll(notes);  // Add the updated data
         arrayAdapter.notifyDataSetChanged();
-        Toast.makeText(this, "working", Toast.LENGTH_SHORT).show();
     }
 
     @Override

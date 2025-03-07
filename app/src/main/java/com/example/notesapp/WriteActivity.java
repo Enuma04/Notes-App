@@ -32,7 +32,9 @@ public class WriteActivity extends AppCompatActivity {
         notes = PreferenceHelper.getPref(this);
         //Log.i("you have this:", PreferenceHelper.getPref(this).get(0) + "at index:" + index);
         if(index != -1){
-            write.setText(notes.get(index));
+            String note = notes.get(index);
+            write.setText(note);
+            updateLimit(note);
         }
 
         write.addTextChangedListener(new TextWatcher() {
@@ -44,7 +46,7 @@ public class WriteActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                updateLimit(s.toString());
             }
 
             @Override
@@ -56,8 +58,16 @@ public class WriteActivity extends AppCompatActivity {
                 }catch(IndexOutOfBoundsException e){
                     notes.add(s.toString());
                     ind = notes.size() - 1;
+                    PreferenceHelper.savePref(WriteActivity.this, notes);
                 }
             }
         });
     }
+
+    public void updateLimit(String s){
+        int len = s.length();
+        String text = String.format("%d/50", 50 - len);
+        limit.setText(text);
+    }
+
 }
